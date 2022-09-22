@@ -2,15 +2,15 @@ import shutil
 import os
 
 from .base import Base
-from .app import App
+from .app import Environment
 
 
 class Kustomization(Base):
-    def __init__(self, app: App):
+    def __init__(self, env: Environment):
         self.name = "kustomization"
         self.resources = []
         self.patches = []
-        Base.__init__(self, app, name="kustomization")
+        Base.__init__(self, env, name="kustomization")
 
     def add(self, comp: Base):
         self.resources.append(comp)

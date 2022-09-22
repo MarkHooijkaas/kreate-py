@@ -1,13 +1,13 @@
 from .base import Base
-from .app import App
+from .app import Environment
 
 
 class Deployment(Base):
-    def __init__(self, app: App):
+    def __init__(self, env: Environment):
         # self.replicas = env.replicas
         # self.container = [Container('app')]
         # self.container[0].image_name = app.name + ".app"
-        Base.__init__(self, app)
+        Base.__init__(self, env)
 
 
 class Container:

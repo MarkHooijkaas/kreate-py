@@ -4,19 +4,20 @@ import pkgutil
 
 from ruamel.yaml import YAML
 
-from .app import App
+from .app import Environment
 from .wrapper import DictWrapper
 
 
 class Base:
     def __init__(self,
-                 app: App,
+                 env : Environment,
                  name: str = None,
                  filename: str = None,
                  template: str = None):
-        self.app = app
+        self.env = env
+        self.app = env.app
         self.kind = type(self).__name__
-        self.name = name or app.name + "-" + self.kind.lower()
+        self.name = name or self.app.name + "-" + self.kind.lower()
         self.filename = filename or self.name + ".yaml"
         self.template = template or self.kind.lower() + ".yaml"
         self.annotations = {}
@@ -50,7 +51,7 @@ class Base:
             lstrip_blocks=True)
         vars = {
             "app": self.app,
-            "env": self.app.env,
+            "env": self.env,
             self.kind.lower(): self}
         if outfile:
             tmpl.stream(vars).dump(outfile)

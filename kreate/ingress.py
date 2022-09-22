@@ -1,10 +1,10 @@
-from .app import App
+from .app import Environment
 from .base import Base
 
 
 class Ingress(Base):
     def __init__(self,
-                 app: App,
+                 env: Environment,
                  name="root",
                  sticky=False,
                  path="/",
@@ -14,7 +14,7 @@ class Ingress(Base):
         self.path = path
         self.host = host
         self.port = port
-        Base.__init__(self, app, name=app.name + "-ingress-" + name)
+        Base.__init__(self, env, name=env.app.name + "-ingress-" + name)
         self.nginx_annon("affinity", "blabla")
 
     def nginx_annon(self, name: str, val: str) -> None:
